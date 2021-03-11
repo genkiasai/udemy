@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIMER</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        .container {
+            text-align: center;
+            margin: 30 auto;
+        }
+
+        #timer {
+            font-size: 36px;
+            border: 1px solid #ccc;
+            margin: 30px auto;
+            padding: 50px;
+            background-color: #000;
+            color: #fff;
+            border-radius: 3px;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, .5);
+        }
+
+        .btn {
+            width: 100%;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <p id="timer">00:00:00</p>
+
+        <div>
+            <button id="start_stop" class="btn btn-lg btn-primary">START</button>
+        </div>
+    </div>
+    <script>
+        var start;
+        var timer_id;
+        // クリックされたときのイベントドリブン
+        document.getElementById("start_stop").addEventListener("click", function() {
+            start = new Date();
+            if (this.innerHTML === "START") {   
+                // 第二引数の単位はms
+                timer_id = setInterval(goTimer, 10);
+
+                // STOPボタンにする
+                this.innerHTML = "STOP";
+                this.classList.remove("btn-primary");
+                this.classList.add("btn-danger");
+            } else {
+                clearInterval(timer_id);
+
+                // STARTボタンにする
+                this.innerHTML = "START";
+                this.classList.remove("btn-danger");
+                this.classList.add("btn-primary");
+            }
+        });
+
+        // ゼロを追加する
+        var addZero = function(value) {
+            if (value < 10) {
+                value = "0" + value;
+            }
+            return value;
+        }
+
+        // 表示の処理
+        var goTimer = function() {
+            var now = new Date();
+            var seconds = Math.floor((now.getTime() - start.getTime())/1000);
+            var minutes = Math.floor(seconds / 60);
+            var hours = Math.floor(minutes / 60);
+
+            seconds = seconds - minutes * 60;
+            minutes = minutes - hours * 60;
+
+            document.getElementById("timer").innerHTML = addZero(hours) + ":" + addZero(minutes) + ":" + addZero(seconds);
+
+        }
+    </script>
+    <!-- Bootstrap4 -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

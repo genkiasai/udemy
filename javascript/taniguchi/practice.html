@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>practice</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: rgba(26, 55, 229, .06);
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 0 3px rgba(0, 0, 0, .3);
+        }
+
+        img {
+            width: 100%;
+            margin: 0;
+            vertical-align: top;
+        }
+
+        header {
+            background-color: #007acc;
+            color: #fff;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 25px;
+            padding: 5px;
+            text-align: center;
+            font-family: "Open Sans Condensed", sans-serif;
+        }
+
+        .photo {
+            position: relative;
+        }
+
+        .photo .inner {
+            position: absolute;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, .5);
+            font-size: 10px;
+            color: #fff;
+            margin: 0;
+            width: 100%;
+        }
+
+        .inner p {
+            padding: 20px;
+        }
+
+        .inner span {
+            margin-left: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My Photos</h1>
+    </header>
+
+    <div class="container">
+        <div id="img_unit">
+        </div>
+    </div>
+
+    <script>
+        var images;
+        var img;
+        var caption;
+        var div;
+
+        images = [
+            {
+                "path" : "img/img01.jpeg",
+                "name" : "name01",
+                "caption" : "コメント01"
+            },
+            {
+                "path" : "img/img02.jpeg",
+                "name" : "name02",
+                "caption" : "コメント02"
+            }
+        ]
+
+        img = document.createElement("img");
+        img.setAttribute("src", images[0].path);
+
+        caption = document.createElement("div");
+        caption.className = "inner";
+        caption.innerHTML = "<p>" + images[0].caption + "<span>" + images[0].name + "</span></p>";
+
+        div = document.getElementById("img_unit");
+        div.className = "photo";
+        div.appendChild(img);
+        div.appendChild(caption);
+
+    </script>
+</body>
+</html>

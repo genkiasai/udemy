@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>TODAY</title>
+</head>
+<body>
+    <header>
+        <h1>TODAY</h1>
+    </header>
+
+    <div class="container">
+        <script>
+            var today = new Date();
+            var todayHtml = today.getFullYear() + "/" + (today.getMonth() + 1) + "/" + today.getDate();
+
+            document.write("<p class='date'>今日は、" + todayHtml + "です。</p>")
+
+        </script>
+    </div>
+</body>
+</html>

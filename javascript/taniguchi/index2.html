@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.2/dist/confetti.browser.min.js"></script>
+    <title>practice</title>
+    <!-- Bootstrap4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        body {
+            text-align: center;
+            font-family: "Times New Roman", serif;
+            padding: 30px;
+        }
+
+        #timeArea {
+            font-size: 3em;
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            width: 100%;
+        }
+
+
+    </style>
+</head>
+<body>
+    <!-- 時間表示エリア -->
+    <div id="timeArea">
+        <span id="time">00:00:00</span>
+    </div>
+
+    <div id="dispArea">
+        <span id="disp">こんにちは</span>
+    </div>
+
+    <!-- 操作ボタンエリア -->
+    <button id="start_stop" class="btn btn-lg btn-primary">START</button>
+
+
+    <!-- JavaScript -->
+    <script>
+        var now;
+        var start;
+        var timer = "00:00:00";
+        var timer_id;
+        var milliSeconds;
+        var seconds;
+        var minutes;
+        var hours;
+
+        // 繰り返し処理
+        var birthday = new Date("2021/2/1 7:2:00");
+        // timer_id = setInterval(text, 10);
+
+        // document.getElementById("start_stop").addEventListener("click", function () {
+        //     if (this.innerHTML === "START") {
+        //         this.classList.remove("btn-primary");
+        //         this.classList.add("btn-danger");
+        //         this.innerHTML = "STOP";
+        //         // インスタンス化
+        //         start = new Date();
+        //         // 繰り返し処理
+        //         timer_id = setInterval(text, 10);
+        //     } else {
+        //         this.innerHTML = "START";
+        //         this.classList.remove("btn-danger");
+        //         this.classList.add("btn-primary");
+        //         // 繰り返し処理をリセット
+        //         clearInterval(timer_id);
+        //     }
+        // });
+
+        // ゼロを付け加えて2桁にする処理
+        var addZero = function (value) {
+            if (value < 10) {
+                value = "0" + value;
+            }
+            return value;
+        };
+
+        function dateCounter() {
+        var timer = setInterval(function() {
+            // インスタンス化
+            now = new Date();
+            var ms = (birthday - now);
+
+            var h = Math.floor(ms/(3600 * 1000));
+            var _h = h % 24;
+            //分を取得
+            var m = Math.floor((ms - h * 3600000) / 60000);
+            //秒を取得
+            var s = Math.round((ms - h * 3600000 - m * 60000) / 1000);
+
+            document.getElementById("time").innerHTML = addZero(_h) + ":" + addZero(m) + ":" + addZero(s);
+            // document.getElementById("time").innerHTML = addZero(_h) + ":" + addZero(m) + ":" + addZero(s);
+            if ((_h + m + s) < 1) {
+                clearInterval(timer)
+                confetti()
+                setInterval(confetti, 1500)
+            }
+        }, 500);
+        }
+        dateCounter();
+
+        // タイマ表示
+        var text = function () {
+            // インスタンス化
+            now = new Date();
+            var ms = (birthday - now);
+
+            var h = Math.floor(ms/(3600 * 1000));
+            var _h = h % 24;
+            //分を取得
+            var m = Math.floor((ms - h * 3600000) / 60000);
+            //秒を取得
+            var s = Math.round((ms - h * 3600000 - m * 60000) / 1000);
+
+            document.getElementById("time").innerHTML = addZero(_h) + ":" + addZero(m) + ":" + addZero(s);
+            // document.getElementById("time").innerHTML = addZero(_h) + ":" + addZero(m) + ":" + addZero(s);
+
+
+            milliSeconds = now.getTime() - start.getTime();
+            seconds = Math.floor(milliSeconds/1000);
+            minutes = Math.floor(seconds / 60);
+            hours = Math.floor(minutes / 60);
+
+            // document.getElementById("time").innerHTML = addZero(hours) + ":" + addZero(minutes - hours * 60) + ":" + addZero(seconds - minutes * 60);
+        };
+
+    </script>
+    <!-- Bootstrap4 -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
